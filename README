@@ -1,0 +1,15 @@
+Utility script for bulk download of genomes from KBase
+
+usage: download_narrative_genomes.py [-h] [-n NARRATIVE] [-t TOKEN]
+                                     [-f FORMAT]
+
+Arguments:
+  -n NARRATIVE  Narrative identifier (for example, 49058 from https://narrative.kbase.us/narrative/49058)
+  -t TOKEN      Authorization token from kbase_session or kbase_session_backup field of kbase.us cookies
+  -f FORMAT     File format. Acceptable values: gbk, gff, faa. Export to GenBank also generates nuclotide fasta files in "contigs" subdirectory
+
+Output depends on -f argument value
+gff: GFF files in gff subdirectory
+gbk: Genbank files in genbank subdirectory and nuclotide FASTA files in contigs subdirectory
+faa: Protein FASTA files in proteins subdirectory
+Script also creates text file with list of genome objects.
