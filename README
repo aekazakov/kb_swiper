@@ -18,5 +18,5 @@ HOW TO OBTAIN KBASE TOKEN IN FIREFOX:
 1. Go to kbase.us and log in.
 2. In the dashboard or narrative, press Shift+F9. Opens Storage tab of Web Developer tools.
 3. In the list of cookies, click narrative.kbase.us (it may be active already).
-4. Find parameter "kbase_session" (or "kbase_session_backup"). This is KBase authorization token (usually, 32 capital letters and digits symbols). 
+4. Find parameter "kbase_session" (or "kbase_session_backup"). This is KBase authorization token (usually, 32 capital letters and digits). 
 5. Copy the token and paste into command line.
