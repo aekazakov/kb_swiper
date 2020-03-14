@@ -1,6 +1,6 @@
 Utility script for bulk download of genomes from KBase
 
-usage: python3 download_narrative_genomes.py [-h] [-n NARRATIVE] [-t TOKEN]
+usage: python3 download_narrative_genomes.py [-n NARRATIVE] [-t TOKEN]
                                      [-f FORMAT]
 
 Arguments:
