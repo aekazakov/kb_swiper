@@ -4,7 +4,7 @@ usage: python3 download_narrative_genomes.py [-n NARRATIVE] [-t TOKEN]
                                      [-f FORMAT]
 
 Arguments:
-  -n NARRATIVE  Narrative identifier (for example, 49058 from https://narrative.kbase.us/narrative/49058)
+  -n NARRATIVE  Narrative identifier (for example, 49058 from https://narrative.kbase.us/narrative/49058). You must have an access to this narrative.
   -t TOKEN      Authorization token from kbase_session or kbase_session_backup field of kbase.us cookies
   -f FORMAT     File format. Acceptable values: gbk, gff, faa. Export to GenBank also generates nuclotide fasta files in "contigs" subdirectory
 
@@ -13,3 +13,10 @@ gff: GFF files in gff subdirectory
 gbk: Genbank files in genbank subdirectory and nuclotide FASTA files in contigs subdirectory
 faa: Protein FASTA files in proteins subdirectory
 Script also creates text file with list of genome objects.
+
+HOW TO OBTAIN KBASE TOKEN IN FIREFOX:
+1. Go to kbase.us and log in.
+2. In the dashboard or narrative, press Shift+F9. Opens Storage tab of Web Developer tools.
+3. In the list of cookies, click narrative.kbase.us (it may be active already).
+4. Find parameter "kbase_session" (or "kbase_session_backup"). This is KBase authorization token (usually, 32 capital letters and digits symbols). 
+5. Copy the token and paste into command line.
