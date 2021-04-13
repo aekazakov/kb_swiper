@@ -131,7 +131,6 @@ def kb_genomes_download(genomes_list, cfg):
         elif download_format == 'gff':
             result = exporter.export(cfg['context'], download_params)['file_path']
         print('FILE CREATED:', result)
-        break
 
 
 def main():
