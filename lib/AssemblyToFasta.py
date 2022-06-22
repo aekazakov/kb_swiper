@@ -4,7 +4,7 @@ import shutil
 from Bio import SeqIO
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
-from Bio.Alphabet import SingleLetterAlphabet
+#from Bio.Alphabet import SingleLetterAlphabet
 
 from lib.DataFileUtilClient import DataFileUtil
 
@@ -75,7 +75,7 @@ class AssemblyToFasta:
                 description = ''
                 if 'description' in contig and contig['description']:
                     description = contig['description']
-                yield SeqRecord(Seq(contig['sequence'], SingleLetterAlphabet),
+                yield SeqRecord(Seq(contig['sequence']),
                                 id=contig['id'],
                                 description=description)
 
