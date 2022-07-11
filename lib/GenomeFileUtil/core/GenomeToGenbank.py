@@ -270,11 +270,11 @@ class GenomeFile:
         
         # Added locus tags
         if in_feature['type'] == 'gene':
-            out_feature.qualifiers['locus_tag'] = in_feature['id']
+            out_feature.qualifiers['locus_tag'] = [in_feature['id']]
         elif in_feature['type'] == 'CDS' and 'parent_gene' in in_feature:
-            out_feature.qualifiers['locus_tag'] = in_feature['parent_gene']
+            out_feature.qualifiers['locus_tag'] = [in_feature['parent_gene']]
         elif in_feature['type'] == 'mRNA' and 'parent_gene' in in_feature:
-            out_feature.qualifiers['locus_tag'] = in_feature['parent_gene']
+            out_feature.qualifiers['locus_tag'] = [in_feature['parent_gene']]
         
         if in_feature.get('functional_descriptions'):
             out_feature.qualifiers['function'] = "; ".join(
@@ -300,8 +300,9 @@ class GenomeFile:
         for alias in in_feature.get('aliases', []):
             if len(alias) == 2:
                 if not alias[0] in out_feature.qualifiers:
-                    out_feature.qualifiers[alias[0]] = []
-                out_feature.qualifiers[alias[0]].append(alias[1])
+                    out_feature.qualifiers[alias[0]] = [alias[1]]
+                elif alias[1] not in out_feature.qualifiers[alias[0]]:
+                    out_feature.qualifiers[alias[0]].append(alias[1])
             else:  # back compatibility
                 if 'db_xref' not in out_feature.qualifiers:
                     out_feature.qualifiers['db_xref'] = []
