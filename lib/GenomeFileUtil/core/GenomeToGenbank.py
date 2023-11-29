@@ -8,7 +8,7 @@ import time
 # import json
 from collections import defaultdict
 
-from Bio import SeqIO, SeqFeature, Alphabet
+from Bio import SeqIO, SeqFeature  #, Alphabet
 
 from lib.AssemblyUtilClient import AssemblyUtil
 from lib.DataFileUtilClient import DataFileUtil
@@ -136,7 +136,7 @@ class GenomeFile:
                 self.features_by_contig[cds['location'][0][0]].append(cds)
 
         assembly_file_path, circ_contigs = self._get_assembly(genome_object)
-        for contig in SeqIO.parse(open(assembly_file_path), 'fasta', Alphabet.generic_dna):
+        for contig in SeqIO.parse(open(assembly_file_path), 'fasta'):  #, Alphabet.generic_dna):
             if contig.id in circ_contigs:
                 contig.annotations['topology'] = "circular"
             self._parse_contig(contig)
@@ -297,15 +297,15 @@ class GenomeFile:
             for ont, terms in in_feature['ontology_terms'].items():
                 out_feature.qualifiers['db_xref'].extend([t for t in terms])
 
-        for alias in in_feature.get('aliases', []):
-            if len(alias) == 2:
-                if not alias[0] in out_feature.qualifiers:
-                    out_feature.qualifiers[alias[0]] = []
-                out_feature.qualifiers[alias[0]].append(alias[1])
-            else:  # back compatibility
-                if 'db_xref' not in out_feature.qualifiers:
-                    out_feature.qualifiers['db_xref'] = []
-                out_feature.qualifiers['db_xref'].append(alias)
+#        for alias in in_feature.get('aliases', []):
+#            if len(alias) == 2:
+#                if not alias[0] in out_feature.qualifiers:
+#                    out_feature.qualifiers[alias[0]] = []
+#                out_feature.qualifiers[alias[0]].append(alias[1])
+#            else:  # back compatibility
+#                if 'db_xref' not in out_feature.qualifiers:
+#                    out_feature.qualifiers['db_xref'] = []
+#                out_feature.qualifiers['db_xref'].append(alias)
 
         for flag in in_feature.get('flags', []):
             out_feature.qualifiers[flag] = None

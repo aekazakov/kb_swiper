@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python
 import os
 import sys
 import argparse
@@ -76,14 +76,21 @@ def list_objects(token, my_ws):
     print('WORKSPACE VALIDATED:', ret)
     
     my_workspace = ret[1]
+    max_id = ret[4]
     kb_data_type = 'KBaseGenomes.Genome'
-    obj_list = ws_client.list_objects({'workspaces':[my_workspace],
-                                       'type':kb_data_type})
-    #print(obj_list)
+    
     out_file = my_ws + '_' + kb_data_type + '_list.txt'
     with open(out_file, 'w') as outfile:
-        for obj in obj_list:
-            outfile.write('\t'.join([str(x) for x in obj]) + '\n')
+        for i in range(0, max_id, 10000):
+            obj_list = ws_client.list_objects({
+                'workspaces':[my_workspace],
+                'minObjectID': i + 1,
+                'maxObjectID': i + 10000}
+            )
+            #print(obj_list)
+            for obj in obj_list:
+                if kb_data_type in str(obj[2]):
+                    outfile.write('\t'.join([str(x) for x in obj]) + '\n')
     return out_file
 
 
@@ -131,7 +138,6 @@ def kb_genomes_download(genomes_list, cfg):
         elif download_format == 'gff':
             result = exporter.export(cfg['context'], download_params)['file_path']
         print('FILE CREATED:', result)
-        break
 
 
 def main():
