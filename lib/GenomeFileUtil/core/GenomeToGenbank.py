@@ -8,7 +8,11 @@ import time
 # import json
 from collections import defaultdict
 
+<<<<<<< HEAD
 from Bio import SeqIO, SeqFeature  #, Alphabet
+=======
+from Bio import SeqIO, SeqFeature
+>>>>>>> refs/remotes/origin/master
 
 from lib.AssemblyUtilClient import AssemblyUtil
 from lib.DataFileUtilClient import DataFileUtil
@@ -136,7 +140,11 @@ class GenomeFile:
                 self.features_by_contig[cds['location'][0][0]].append(cds)
 
         assembly_file_path, circ_contigs = self._get_assembly(genome_object)
+<<<<<<< HEAD
         for contig in SeqIO.parse(open(assembly_file_path), 'fasta'):  #, Alphabet.generic_dna):
+=======
+        for contig in SeqIO.parse(open(assembly_file_path), 'fasta'):
+>>>>>>> refs/remotes/origin/master
             if contig.id in circ_contigs:
                 contig.annotations['topology'] = "circular"
             self._parse_contig(contig)
@@ -235,7 +243,7 @@ class GenomeFile:
                 raw_contig.features.extend([self._format_feature(
                     self.child_dict[_id], raw_contig.id) for _id in feat.get('cdss', [])])
 
-
+        raw_contig.annotations["molecule_type"] = "DNA"
         self.seq_records.append(raw_contig)
 
     def _format_publications(self):
@@ -270,11 +278,11 @@ class GenomeFile:
         
         # Added locus tags
         if in_feature['type'] == 'gene':
-            out_feature.qualifiers['locus_tag'] = in_feature['id']
+            out_feature.qualifiers['locus_tag'] = [in_feature['id']]
         elif in_feature['type'] == 'CDS' and 'parent_gene' in in_feature:
-            out_feature.qualifiers['locus_tag'] = in_feature['parent_gene']
+            out_feature.qualifiers['locus_tag'] = [in_feature['parent_gene']]
         elif in_feature['type'] == 'mRNA' and 'parent_gene' in in_feature:
-            out_feature.qualifiers['locus_tag'] = in_feature['parent_gene']
+            out_feature.qualifiers['locus_tag'] = [in_feature['parent_gene']]
         
         if in_feature.get('functional_descriptions'):
             out_feature.qualifiers['function'] = "; ".join(
@@ -297,6 +305,7 @@ class GenomeFile:
             for ont, terms in in_feature['ontology_terms'].items():
                 out_feature.qualifiers['db_xref'].extend([t for t in terms])
 
+<<<<<<< HEAD
 #        for alias in in_feature.get('aliases', []):
 #            if len(alias) == 2:
 #                if not alias[0] in out_feature.qualifiers:
@@ -306,6 +315,18 @@ class GenomeFile:
 #                if 'db_xref' not in out_feature.qualifiers:
 #                    out_feature.qualifiers['db_xref'] = []
 #                out_feature.qualifiers['db_xref'].append(alias)
+=======
+        for alias in in_feature.get('aliases', []):
+            if len(alias) == 2:
+                if not alias[0] in out_feature.qualifiers:
+                    out_feature.qualifiers[alias[0]] = [alias[1]]
+                elif alias[1] not in out_feature.qualifiers[alias[0]]:
+                    out_feature.qualifiers[alias[0]].append(alias[1])
+            else:  # back compatibility
+                if 'db_xref' not in out_feature.qualifiers:
+                    out_feature.qualifiers['db_xref'] = []
+                out_feature.qualifiers['db_xref'].append(alias)
+>>>>>>> refs/remotes/origin/master
 
         for flag in in_feature.get('flags', []):
             out_feature.qualifiers[flag] = None

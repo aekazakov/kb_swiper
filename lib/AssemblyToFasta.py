@@ -75,7 +75,11 @@ class AssemblyToFasta:
                 description = ''
                 if 'description' in contig and contig['description']:
                     description = contig['description']
+<<<<<<< HEAD
                 yield SeqRecord(Seq(contig['sequence']),  #, SingleLetterAlphabet),
+=======
+                yield SeqRecord(Seq(contig['sequence']),
+>>>>>>> refs/remotes/origin/master
                                 id=contig['id'],
                                 description=description)
 
