@@ -7,12 +7,7 @@ import logging
 import time
 # import json
 from collections import defaultdict
-
-<<<<<<< HEAD
-from Bio import SeqIO, SeqFeature  #, Alphabet
-=======
 from Bio import SeqIO, SeqFeature
->>>>>>> refs/remotes/origin/master
 
 from lib.AssemblyUtilClient import AssemblyUtil
 from lib.DataFileUtilClient import DataFileUtil
@@ -140,11 +135,7 @@ class GenomeFile:
                 self.features_by_contig[cds['location'][0][0]].append(cds)
 
         assembly_file_path, circ_contigs = self._get_assembly(genome_object)
-<<<<<<< HEAD
-        for contig in SeqIO.parse(open(assembly_file_path), 'fasta'):  #, Alphabet.generic_dna):
-=======
         for contig in SeqIO.parse(open(assembly_file_path), 'fasta'):
->>>>>>> refs/remotes/origin/master
             if contig.id in circ_contigs:
                 contig.annotations['topology'] = "circular"
             self._parse_contig(contig)

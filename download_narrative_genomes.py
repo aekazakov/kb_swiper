@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 #!/usr/bin/env python
-=======
-#!python3
->>>>>>> refs/remotes/origin/master
 import os
 import sys
 import argparse
